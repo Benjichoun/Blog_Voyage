@@ -1,0 +1,35 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory:
+                memory:
+                  users:
+                    Mathilde:
+                        password: mouton
+                        roles: 'ROLE_ADMIN'
+                    Benjamin:
+                        password: gaga
+                        roles: 'ROLE_ADMIN'
+                    Admin:
+                        password: admin
+                        roles: 'ROLE_ADMIN'
+
+    firewalls:
+      secured_area:
+          pattern: ^/
+          anonymous: ~
+          form_login:
+              login_path: /login
+              check_path: /login_check
+          logout:
+              path: /logout
+              target: /
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    access_control:
+       - { path: ^/admin, roles: ROLE_ADMIN }

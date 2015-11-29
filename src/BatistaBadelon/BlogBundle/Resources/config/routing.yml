@@ -1,0 +1,38 @@
+login:
+    pattern:     /login
+    defaults: { _controller: BatistaBadelonBlogBundle:Default:admin }
+
+login_check:
+    pattern:    /login_check
+
+logout:
+    pattern:    /logout
+
+batista_badelon_blog_ajouter:
+    path:     /admin/ajouter
+    defaults: { _controller: BatistaBadelonBlogBundle:Article:ajouter }
+
+batista_badelon_blog_form:
+    path:     /admin/form
+    defaults: { _controller: BatistaBadelonBlogBundle:Article:formulaire }
+
+batista_badelon_blog_modifier:
+    path:     /admin/modifier
+    defaults: { _controller: BatistaBadelonBlogBundle:Article:modifier }
+
+batista_badelon_blog_formulairemodif:
+    path: /admin/formm
+    defaults: { _controller: BatistaBadelonBlogBundle:Article:formulairemodif }
+
+batista_badelon_blog_formulairesupp:
+    path: /admin/supp
+    defaults: { _controller: BatistaBadelonBlogBundle:Article:supp }
+
+batista_badelon_blog_carte:
+    path: /carte
+    defaults: { _controller: BatistaBadelonBlogBundle:Article:carte }
+
+
+
+
+

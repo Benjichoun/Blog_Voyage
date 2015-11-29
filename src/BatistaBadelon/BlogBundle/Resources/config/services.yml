@@ -1,0 +1,4 @@
+services:
+#    batista_badelon_blog.example:
+#        class: BatistaBadelon\BlogBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

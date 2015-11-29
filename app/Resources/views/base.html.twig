@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+
+    <head>
+
+        <meta charset="UTF-8" />
+
+        <title>{% block title %}Accueil{% endblock %}</title>
+
+        {% block stylesheets %}
+            <!-- style et script utilise pour le blog -->
+            <link rel="stylesheet" href={{ asset('bootstrap/css/bootstrap.css') }}>
+            <script src={{asset('bootstrap/js/jquery.js')}}></script>
+            <script src={{asset('bootstrap/js/bootstrap.min.js')}}></script>
+            <script src={{asset('bootstrap/js/jquery.isotope.js')}}></script>
+<style>.affix {
+
+        z-index:10;
+        top: 0;
+        width: 100%;
+    }
+
+    .affix + .container-fluid {
+        padding-top: 70px;
+    }
+    </style>
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
+
+
+
+
+        {% endblock %}
+
+    </head>
+
+
+
+
+    <body bgcolor="#929292">{% block body %}
+
+        <div class="container2">
+
+
+            <header class="row">
+             <div class="ban">
+                <img class="img-responsive" src="{{ asset('img/ban.jpeg')}}" width=150% height=100% alt="ban">
+                    <p class="img-responsive bantext">Blog de Voyage</p>
+                    <p class="img-responsive bantext2"><span class="space"></span>par Mathilde BADELON & Benjamin BATISTA</p>
+                </div>
+            </header>
+
+
+        <div data-spy="affix" data-offset-top="300">
+
+            <nav class="navbar navbar-inverse" id="nav" > <!-- Debut de la bar de nav -->
+
+                <div class="container">
+                    <!-- Debut des actions de la barre de navigation -->
+                    <ul class="nav navbar-nav">
+
+
+                        <li class="{% if app.request.attributes.get('_route') == 'homepage' %}active{% endif %}"> <a href="{{path('homepage')}}">Accueil</a> </li>
+
+                        <li class="menu-item dropdown">
+                            <a data-toggle="dropdown" >Choix par<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li class="menu-item dropdown dropdown-submenu"><a >Continent</a>
+                                <ul class="dropdown-menu">
+                                <li><a id="continent" href="{{ path('homepage',{'continent':"europe"}) }}">Europe</a></li>
+                                <li><a id="continent"  href="{{ path('homepage',{'continent':"oceanie"}) }}">Océanie</a></li>
+                                <li><a id="continent"  href="{{ path('homepage',{'continent':"asie"}) }}">Asie</a></li>
+                                <li><a id="continent"  href="{{ path('homepage',{'continent':"amnord"}) }}">Amérique du Nord</a></li>
+                                <li><a id="continent"  href="{{ path('homepage',{'continent':"amsud"}) }}">Amérique du Sud</a></li>
+                                <li><a id="continent"  href="{{ path('homepage',{'continent':"afrique"}) }}">Afrique</a></li>
+                                </ul>
+                                </li>
+                                <li class="menu-item dropdown dropdown-submenu"><a >Auteur</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a id="auteur" href="{{ path('homepage',{'auteur':"benjamin"}) }}">Benjamin</a></li>
+                                        <li><a id="auteur"  href="{{ path('homepage',{'auteur':"mathilde"}) }}">Mathilde</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="{% if app.request.attributes.get('_route') == 'batista_badelon_blog_carte' %}active{% endif %}"><a href="{{ path('batista_badelon_blog_carte') }}">Carte</a></li>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+
+                        <li class=" btn-danger {% if app.request.attributes.get('_route') == 'batista_badelon_blog_ajouter' %}:active focus{% endif %}"> <a href="{{path('batista_badelon_blog_ajouter')}}">Ajouter</a> </li>
+
+                            <li class="welcome">
+                                {% if  app.user.username  == "Benjamin" %}
+
+                                    <img class="img-circle" src="https://graph.facebook.com/1668541360/picture?type=small"/>
+
+                                {% elseif app.user.username == "Mathilde" %}
+
+                                    <img class="img-circle" src="https://graph.facebook.com/100002226864039/picture?type=small"/>
+
+                                {% endif %}
+                                Bienvenue {{app.user.username}}
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                    <!-- Fin des actions de la bar de navigation -->
+
+                    <!-- Ajout du bouton de recherche et de conexion/deconexion -->
+                    <form class="navbar-form navbar-right inline-form">
+                        <div class="form-group">
+
+                            <form method="GET">
+                            <input type="search" id=search name="search" class="input-sm form-control" placeholder="Recherche">
+                            <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
+                            </form>
+                            {% if is_granted('ROLE_ADMIN') %}
+
+                                <a href="{{ path('logout') }}" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a>
+
+                            {% else %}
+
+                                <a href="{{ path('login') }}" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-log-in"></span> Connexion</a>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </form>
+                    <!-- Fin de l'ajou du bouton de recherche et de conexion/Deconexion -->
+
+                </div>
+            </nav> <!-- Fin de la bar de nav -->
+            </div>
+
+
+
+
+
+            <div class="row"> <!-- Tout le contenu au centre de la page -->
+
+
+                <!-- Espace pour centrer l'article -->
+                <div class="col-sm-3">
+                    <div class="row">
+                        <aside class="col-md-12">
+
+                        </aside>
+                        <aside class="col-md-12">
+
+                        </aside>
+                    </div>
+                </div>
+
+
+                <!-- Article -->
+                <section class=" col-md-6">
+
+                    {% block container %}
+
+                        {% include "BatistaBadelonBlogBundle:Article:index.html.twig" %}
+
+                    {% endblock %}
+
+                </section>
+                <!-- Fin Article -->
+
+
+
+            </div> <!-- Fin du contenu -->
+
+
+            <!-- Pied de page avec ajout de bouton de partage Facebook et Twitter -->
+            <nav class="footer">
+                <div class="container">
+
+                    <p class="pull-left"> &copy; 2015 - BADELON Mathilde & BATISTA Benjamin</p>
+
+                    <p class="pull-right">
+
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://projetblogdevoyage.free.fr" data-text="Je partage ce site qui pourrait vous int&eacute;ressez  !" data-via="Benjichoun" data-lang="fr">Tweeter</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+                        <iframe src="http://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fprojetblogdevoyage.free.fr&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=30" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:20px;" allowTransparency="true"></iframe>
+
+                    </p>
+
+                </div>
+            </nav> <!-- Fin du pied de page -->
+
+
+
+        </div><!--Fermeture du container -->
+
+
+    {% endblock %}</body>
+
+</html>

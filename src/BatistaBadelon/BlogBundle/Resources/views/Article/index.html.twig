@@ -1,0 +1,110 @@
+
+    {% for Article in AllArticle|reverse(true) %}
+
+    {% block container %}
+
+        <script>
+            function valider() {
+
+              return confirm('Êtes-vous sur de vouloirs supprimer cet Article?');
+            }
+        </script>
+    <div class="panel panel-info">
+
+         <div class="panel-heading">
+
+        <h3 class="panel-title text-center"><font size="5"><b></b>{{ Article.getTitre}}</font></b> </h3>
+
+         </div>
+
+    <div class="panel-body top1">
+
+        {% if Article.getImages is not null %}
+        <div class=" food1">
+            <img class="center-block img-rounded" src="{{asset('img/'~Article.getImages )}}" alt="{{ Article.getImages }}">
+        </div>
+        {% endif %}
+
+    </div>
+
+         <div class="panel-footer" >
+             <p class="text-center texte"> {{ Article.getPhrase }}</p>
+             <div>
+                <button data-toggle="modal" href="#info{{ Article.getID }}" class="btn btn-primary">Lire article</button>
+
+             {% if is_granted('ROLE_ADMIN') %}
+
+               <a  class="btn btn-danger btn-sm" type="button" href="{{ path('batista_badelon_blog_modifier',{'id':Article.getId}) }}"><span class="glyphicon glyphicon-edit"></span> Modifier</a>
+
+               <a  onclick="return valider();" class="btn btn-danger btn-sm" type="button" href="{{ path('batista_badelon_blog_formulairesupp',{'id':Article.getId}) }}"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+
+             {% endif %}
+
+
+             <div>
+                        <p class="text-right auteur">
+
+                            {% if  Article.getAuteur == "Benjamin" %}
+
+                                <a href="https://www.facebook.com/Benjichoun" target="_blank"><img class="img-circle" src="https://graph.facebook.com/1668541360/picture?type=small"/></a>
+
+                            {% elseif  Article.getAuteur == "Mathilde" %}
+
+                                <a href="https://www.facebook.com/mathilde.badelon" target="_blank"><img class="img-circle" src="https://graph.facebook.com/100002226864039/picture?type=small"/></a>
+
+                        {% endif %}
+
+                        {{ Article.getAuteur }} - Posté le: {{ Article.getDate|date("d/m/Y") }}
+
+                        </p>
+                 </div>
+             </div>
+
+         </div>
+
+                    <div class="modal" id="info{{ Article.getId }}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                        <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">x</button>
+                                                <h4 class="modal-title text-center">{{ Article.getTitre }}</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            {% if Article.getImages is not null %}
+
+                                                <img class="center-block img-rounded modal-title" src="{{asset('img/'~Article.getImages )}}" width="80%" height="80%" alt="{{ Article.getImages }}">
+
+                                            {% endif %}
+                                        </div>
+                                        <div class="modal-content">
+                                              <p class="text-center modal-content"> {{ Article.getTexte }}</p>
+
+                                            <p class="modal-footer text-right">
+
+                                                {% if  Article.getAuteur == "Benjamin" %}
+
+                                                <a href="https://www.facebook.com/Benjichoun" target="_blank"><img class="img-circle" src="https://graph.facebook.com/1668541360/picture?type=small"/></a>
+
+                                                {% elseif  Article.getAuteur == "Mathilde" %}
+
+                                                    <a href="https://www.facebook.com/mathilde.badelon" target="_blank"><img class="img-circle" src="https://graph.facebook.com/100002226864039/picture?type=small"/></a>
+
+                                                {% endif %}
+
+                                                {{ Article.getAuteur }} - Posté le: {{ Article.getDate|date("d/m/Y") }}
+
+                                            </p>
+
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+    </div>
+
+
+    {% endblock %}
+
+    {% endfor %}

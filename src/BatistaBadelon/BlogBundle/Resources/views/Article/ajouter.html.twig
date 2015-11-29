@@ -1,0 +1,114 @@
+{% extends '::base.html.twig' %}
+
+{% block container %}
+
+    <section class="col-sm-10 col-md-12">
+    <title>{% block title %}Ajout{% endblock %}</title>
+    <script>
+        function verify(){
+            var i=0;
+
+            var titre=document.getElementById("titre");
+            if(!titre.value.length) {
+                alert("Vous devez mettre un titre à votre Article !")
+                titre.focus();
+                i++;
+            }
+            var texte=document.getElementById("texte");
+            if(!texte.value.length) {
+                alert("Vous devez mettre un texte à votre Article !")
+                texte.focus();
+                i++;
+            }
+            var phrase=document.getElementById("phrase");
+            if(!phrase.value.length) {
+                alert("Vous devez mettre une phrase d'accroche à votre Article !")
+                phrase.focus();
+                i++;
+            }
+            var pays=document.getElementById("pays");
+            if(!pays.value.length) {
+                alert("Vous devez mettre un pays à votre Article !")
+                pays.focus();
+                i++;
+            }
+            var ville=document.getElementById("ville");
+            if(!ville.value.length) {
+                alert("Vous devez mettre une ville à votre Article !")
+                ville.focus();
+                i++;
+            }
+            if(i>0){
+                return false;
+            }
+            else{
+
+                return true;
+            }
+
+
+        }
+    </script>
+    <div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title text-center">Ajout d'un article</h3>
+    </div>
+
+    <div class="panel-body">
+
+
+
+<form onsubmit="return verify();" action= "{{path('batista_badelon_blog_form')}}"  method="POST"   enctype="multipart/form-data" >
+
+    <div>
+        <label for="titre">Titre :</label>
+        <input class="form-control" type="text" name="titre" id="titre"/>
+    </div>
+    <div>
+        <label for="auteur">Auteur : {{ app.user.username }}</label>
+        <input class="form-control" type="hidden" value="{{ app.user.username }}" Name="auteur" id="auteur" />
+    </div>
+    <div>
+        <label for="images">Image :</label>
+        <input class="form-control" type="hidden" name="MAX_FILE_SIZE" value="26214400" />
+        <input class="form-control" accept="image/*"type="file" Name="images" id="images" />
+    </div>
+    <div>
+        <label for="texte">Texte :</label>
+        <textarea class="form-control textarea" maxlength="500000"name="texte" id="texte"></textarea>
+    </div>
+    <div>
+        <label for="phrase">Phrase d'accroche :</label>
+        <textarea class="form-control phrasearea" maxlength="250"name="phrase" id="phrase"></textarea>
+    </div>
+
+    <div>
+        <label for="continent">Continent :</label>
+        <select name="continent" id="continent">
+            <option value="europe">Europe</option>
+            <option value="oceanie">Océanie</option>
+            <option value="asie">Asie</option>
+            <option value="amnord">Amérique du Nord</option>
+            <option value="amsud">Amérique du Sud</option>
+            <option value="afrique">Afrique</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="pays">Pays :</label>
+        <input class="form-control" name="pays" id="pays"></input>
+    </div>
+
+
+    <div>
+        <label for="ville">Ville :</label>
+        <input class="form-control" name="ville" id="ville"></input>
+    </div>
+    <div>
+        <input class="form-control btn btn-primary btn-sm"  type="submit" value="Ajouter l'article"></input>
+    </div>
+
+</form>
+    </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block container %}
+<section class="col-sm-10 col-md-12">
+    <title>{% block title %}Connexion{% endblock %}</title>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title text-center">Connexion Administrateur</h3>
+        </div>
+
+        <div class="panel-body">
+
+        {% if error %}
+    <div>{{ error.message }}</div>
+{% endif %}
+
+<form action="{{ path('login_check') }}" method="post">
+    <label for="username">Pseudo:</label>
+    <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+
+    <label for="password">Mot de passe:</label>
+    <input class="form-control" type="password" id="password" name="_password" />
+
+    <button class="form-control btn btn-primary btn-sm" type="submit">Conexion</button>
+</form>
+
+        </div>
+    </div>
+{% endblock %}

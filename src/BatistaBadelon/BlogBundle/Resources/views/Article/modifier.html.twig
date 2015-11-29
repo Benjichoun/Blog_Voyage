@@ -1,0 +1,63 @@
+{% extends '::base.html.twig' %}
+
+{% block container %}
+    <section class="col-sm-10 col-md-12" xmlns="http://www.w3.org/1999/html">
+    <title>{% block title %}Modfier{% endblock %}</title>
+    <div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title text-center">Modification d'un article</h3>
+    </div>
+
+    <div class="panel-body">
+
+
+
+<form action= "{{path('batista_badelon_blog_formulairemodif')}}"  method="POST" enctype="multipart/form-data" >
+
+    <div>
+        <label for="titre">Titre :</label>
+        <input class="form-control" type="text" value="{{ article.getTitre }}" Name="titre" id="titre"/>
+        <input type="hidden" value="{{  article.getId }}" Name="id" id="id"/>
+        <label for="auteur">Auteur :</label>
+        <input class="form-control" type="text" value="{{ article.getAuteur }}" id="auteur" />
+</div>
+        <div>
+            <label for="images">Image :</label>
+            <input class="form-control" type="hidden" name="MAX_FILE_SIZE" value="26214400" />
+            <input class="form-control" accept="image/*"type="file" Name="images" id="images" />
+        </div>
+        <div>
+        <label for="texte">Texte :</label>
+        <textarea class="form-control textarea"maxlength="500000" name="texte" id="texte">{{ article.getTexte }}</textarea>
+        </div>
+    <div>
+        <label for="phrase">Phrase d'accroche :</label>
+        <textarea class="form-control phrasearea"maxlength="250"  Name="phrase" id="phrase">{{ article.getPhrase }}</textarea>
+        </div>
+        <div>
+        <label for="continent">Continent :</label>
+        <select name="continent" id="continent">
+            <option {% if article.getContinent == "europe" %}selected="selected"{% endif %}" value="europe">Europe</option>
+            <option {% if article.getContinent == "oceanie" %}selected="selected"{% endif %} value="oceanie">Océanie</option>
+            <option {% if article.getContinent == "asie" %}selected="selected"{% endif %} value="asie">Asie</option>
+            <option {% if article.getContinent == "amnord" %}selected="selected"{% endif %} value="amnord">Amérique du Nord</option>
+            <option {% if article.getContinent == "amsud" %}selected="selected"{% endif %} value="amsud">Amérique du Sud</option>
+            <option {% if article.getContinent == "afrique" %}selected="selected"{% endif %} value="afrique">Afrique</option>
+        </select>
+        </div>
+    <div>
+        <label for="pays">Pays :</label>
+        <input class="form-control"  value="{{ article.getPays }}" Name="pays" id="pays"/>
+</div>
+    <div>
+        <label for="ville">Ville :</label>
+        <input class="form-control"  value="{{ article.getVille }}"Name="ville" id="ville"/>
+</div>
+    <div>
+        <input  class="form-control btn btn-primary btn-sm" type="submit" value="Valider la modification"/>
+    </div>
+
+</form>
+    </div>
+    </div>
+    {% endblock %}
